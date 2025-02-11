@@ -18,13 +18,13 @@ In order to deploy squid is required to add this snippet in your website's HTML
 
 ## Options 
  - logger: [Optional] Change squid's sdk logging 
- -- level: 3 **Defaul**. All logs ( Info, Warning, Error )
- -- level: 2. Only Info and Warning
- -- level: 1. Only Info
- -- level: 0. None
+ - - level: 3 **Defaul**. All logs ( Info, Warning, Error )
+ - - level: 2. Only Info and Warning
+ - - level: 1. Only Info
+ - - level: 0. None
  - connection.options: [Optional] Squid connection
- -- simple: `Boolean` **Default is false** By turnign this flag on Squid will connect but ignore traffic events. Squid will still capture visitor's identification.
- -- ready: `Function` Squid will execute this function as soon as it connects.
+ - - simple: `Boolean` **Default is false** By turnign this flag on Squid will connect but ignore traffic events. Squid will still capture visitor's identification.
+ - - ready: `Function` Squid will execute this function as soon as it connects.
 
 ### Example 1: No logging
 ```html
