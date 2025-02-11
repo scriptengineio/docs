@@ -89,7 +89,7 @@ Connect to squid's realtime engine. Do more then just stream, react and enrich v
 let engine = new squid.engine();
 ```
 
-### .on(`visitor.identified`, <handler>);
+### .on(`visitor.identified`, \<handler\>);
 This event will dispatch as soon as the visitor gets identified. If visitor is all ready de anonymised it will provide visitor's identity as soon as it registers the event listener.
 
 ```javascript
@@ -110,7 +110,7 @@ engine.on('visitor.identified', event => {
 });
 ```
 
-### .on(`error`, <handler>);
+### .on(`error`, \<handler\>);
 Debug if something went worng while wiring your service provider.
 
 ```javascript
