@@ -153,8 +153,11 @@ await squid.identify({
 - company_role: Visistor' company role.
 - linkedin_url: Visistor's linkeding url.
 
+# Real-time Engine
+Interact with Squid's real-time engine.
+
 ## squid.engine([{ sp : 'https://myserver.com' }]);
-Connect to squid's realtime engine. Do more then just stream, react and enrich visitor's identity.
+Connect to squid's real-time engine. Do more then just stream, react and enrich visitor's identity.
 
 ### Options
  - sp:  **Optional**. Define your own service provider. As soon as Squid's SDK attempts to provide details of the visitor it will replace the event's detail with whatever your service provider resolves. Squid will make a `POST` request and send visitor's identificationin the`body`.
