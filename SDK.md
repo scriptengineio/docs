@@ -4,6 +4,83 @@
 
 Squid SDK is a real-time event streaming library designed to capture user interactions such as clicks, scrolls, and form submissions while also collecting browser performance metrics. The SDK automatically de-anonymizes users and enriches their identities. All of this happens in real-time through WebSockets, enabling seamless integration with your analytics and customer engagement platforms.
 
+## Install
+In order to deploy squid is required to add this snippet in your website's HTML
+
+```html
+<script>
+  ;(function(squid){
+    (window.$quid) || (window.$quid = {});
+    document.head.appendChild((function(s){ s.src='https://app.asksquid.ai/tfs/'+squid+'/sdk';s.async=1; return s; })(document.createElement('script')));
+  })('SquidID');
+</script>
+```
+
+## Options 
+ - logger: [Optional] Change squid's sdk logging 
+ -- level: 3 **Defaul**. All logs ( Info, Warning, Error )
+ -- level: 2. Only Info and Warning
+ -- level: 1. Only Info
+ -- level: 0. None
+ - connection.options: [Optional] Squid connection
+ -- simple: `Boolean` **Default is false** By turnign this flag on Squid will connect but ignore traffic events. Squid will still capture visitor's identification.
+ -- ready: `Function` Squid will execute this function as soon as it connects.
+
+### Example 1: No logging
+```html
+<script>
+  ;(function(squid){
+    window.$quid = { logger : { level : 0 } };
+    document.head.appendChild((function(s){ s.src='https://app.asksquid.ai/tfs/'+squid+'/sdk';s.async=1; return s; })(document.createElement('script')));
+  })('SquidID');
+</script>
+```
+
+### Example 2: Do not trace traffic
+```html
+<script>
+  ;(function(squid){
+    window.$quid = { 
+      connection : { options : { simple : true } } 
+    };
+    document.head.appendChild((function(s){ s.src='https://app.asksquid.ai/tfs/'+squid+'/sdk';s.async=1; return s; })(document.createElement('script')));
+  })('SquidID');
+</script>
+```
+
+### Example 3: Execute function on connection
+```html
+<script>
+   function onSquidReady(connection){
+     // Do something when squid is ready.
+   }
+   
+  ;(function(squid){
+    window.$quid = { 
+      connection : { ready : onSquidReady }
+    };
+    document.head.appendChild((function(s){ s.src='https://app.asksquid.ai/tfs/'+squid+'/sdk';s.async=1; return s; })(document.createElement('script')));
+  })('SquidID');
+</script>
+```
+
+### Example 4: Execute function on connection and no logging
+```html
+<script>
+   function onSquidReady(connection){
+     // Do something when squid is ready.
+   }
+   
+  ;(function(squid){
+    window.$quid = { 
+      logger     : { level : 0 },
+      connection : { ready : onSquidReady }
+    };
+    document.head.appendChild((function(s){ s.src='https://app.asksquid.ai/tfs/'+squid+'/sdk';s.async=1; return s; })(document.createElement('script')));
+  })('SquidID');
+</script>
+```
+
 # API 
 
 ## squid.VERSION
