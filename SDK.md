@@ -1,9 +1,13 @@
 # Squid SDK
 
+## Introduction
+
+Squid SDK is a real-time event streaming library designed to capture user interactions such as clicks, scrolls, and form submissions while also collecting browser performance metrics. The SDK automatically de-anonymizes users and enriches their identities. All of this happens in real-time through WebSockets, enabling seamless integration with your analytics and customer engagement platforms.
+
 # API 
 
 ## squid.VERSION
-Provides current SDK version
+Provides the current SDK version
 
 ### Usage
 ```javascript
@@ -11,7 +15,7 @@ squid.VERSION
 ```
 
 ## squid.connection();
-Squid will provide current connection details
+Retrieves the current connection details.
 
 ### Usage
 ```javascript
@@ -35,10 +39,10 @@ await squid.connection();
 - online: Connection status.
 - device: Device fingerprint.
 - identity.id : User's unique identifier. 
-- identity.identified: Is current user identified.
+- identity.identified: Indicates whether the current user is identified.
 
 ## squid.identify({ email : 'foo@example.com' });
-If needed you can manully bind a visitor's identification to known traits. This method will also enrich the user with **VisitorID**.
+Manually binds a visitor's identification to known traits. This method will also enrich the user with **VisitorID**.
 
 ### Usage
 ```javascript
