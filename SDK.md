@@ -18,13 +18,13 @@ In order to deploy squid is required to add this snippet in your website's HTML
 
 ## Options 
  - logger: [Optional] Change squid's sdk logging 
- - - level: 3 **Defaul**. All logs ( Info, Warning, Error )
- - - level: 2. Only Info and Warning
- - - level: 1. Only Info
- - - level: 0. None
+ -- level: 3 **Defaul**. All logs ( Info, Warning, Error )
+ -- level: 2. Only Info and Warning
+ -- level: 1. Only Info
+ -- level: 0. None
  - connection.options: [Optional] Squid connection
- - - simple: `Boolean` **Default is false** By turnign this flag on Squid will connect but ignore traffic events. Squid will still capture visitor's identification.
- - - ready: `Function` Squid will execute this function as soon as it connects.
+ -- simple: `Boolean` **Default is false** By turnign this flag on Squid will connect but ignore traffic events. Squid will still capture visitor's identification.
+ -- ready: `Function` Squid will execute this function as soon as it connects.
 
 ### Example 1: No logging
 ```html
@@ -153,14 +153,12 @@ await squid.identify({
 - company_role: Visistor' company role.
 - linkedin_url: Visistor's linkeding url.
 
-# Real-time Engine
-Interact with Squid's real-time engine.
-
 ## squid.engine([{ sp : 'https://myserver.com' }]);
-Connect to squid's real-time engine. Do more then just stream, react and enrich visitor's identity.
+Connect to squid's realtime engine. Do more then just stream, react and enrich visitor's identity.
 
 ### Options
- - sp:  **Optional**. Define your own service provider. As soon as Squid's SDK attempts to provide details of the visitor it will replace the event's detail with whatever your service provider resolves. Squid will make a `POST` request and send visitor's identificationin the`body`.
+ - sp:  **Optional**. Define your own service provider. As soon as Squid's SDK attempts to provide details of en `event`, you can replace its content with any other payload comming from your server.
+ -- `visitor.identified`: **POST /visitor_details** `{visitorID}`
  
 
 ## Usage
@@ -170,7 +168,7 @@ let engine = new squid.engine();
 ```
 
 ### .on(`visitor.identified`, \<handler\>);
-This event will dispatch as soon as the visitor gets identified. If visitor is all ready de anonymised it will provide visitor's identity as soon as it registers the event listener.
+This event will dispatch as soon as Squid syncs the visitor and visitor is identified. 
 
 ```javascript
 let engine = new squid.engine();
@@ -183,10 +181,30 @@ Use your own service provider. This is usefull if you need to enrich visitor's t
 ```javascript
 let engine = new squid.engine({ sp : 'https://myserver.com' });
 
-// POST 'https://myserver.com'  
+// POST 'https://myserver.com/visitor_details'
 // Body: {Visitor's identification}
 engine.on('visitor.identified', event => {
   // event.detail holds 'https://myserver.com' response
+});
+```
+
+### .on(`visitor.unknown`, \<handler\>);
+This event will dispatch as soon as Squid syncs and the visitor is unknown or anonymous.
+
+```javascript
+let engine = new squid.engine();
+engine.on('visitor.unknown', event => {
+  // your code
+});
+```
+
+### .on(`visitor.synched`, \<handler\>);
+This event will dispatch as soon as Squid syncs. this event provides the current visitor regarthless if its identified or not.
+
+```javascript
+let engine = new squid.engine();
+engine.on('visitor.synched', event => {
+  // your code
 });
 ```
 
