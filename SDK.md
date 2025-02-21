@@ -158,7 +158,7 @@ Connect to squid's realtime engine. Do more then just stream, react and enrich v
 
 ### Options
  - sp:  **Optional**. Define your own service provider. As soon as Squid's SDK attempts to provide details of en `event`, you can replace its content with any other payload comming from your server.
- -- `visitor.identified`: **POST /visitor_details** `{visitorID}`
+   - `visitor.identified`: **POST /visitor_details** `{visitorID}`
  
 
 ## Usage
