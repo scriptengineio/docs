@@ -18,13 +18,13 @@ In order to deploy squid is required to add this snippet in your website's HTML
 
 ## Options 
  - logger: [Optional] Change squid's sdk logging 
- -- level: 3 **Defaul**. All logs ( Info, Warning, Error )
- -- level: 2. Only Info and Warning
- -- level: 1. Only Info
- -- level: 0. None
+ - - level: 3 **Defaul**. All logs ( Info, Warning, Error )
+   - level: 2. Only Info and Warning
+   - level: 1. Only Info
+   - level: 0. None
  - connection.options: [Optional] Squid connection
- -- simple: `Boolean` **Default is false** By turnign this flag on Squid will connect but ignore traffic events. Squid will still capture visitor's identification.
- -- ready: `Function` Squid will execute this function as soon as it connects.
+ - - simple: `Boolean` **Default is false** By turnign this flag on Squid will connect but ignore traffic events. Squid will still capture visitor's identification.
+   - ready: `Function` Squid will execute this function as soon as it connects.
 
 ### Example 1: No logging
 ```html
@@ -83,7 +83,7 @@ In order to deploy squid is required to add this snippet in your website's HTML
 
 # API 
 
-## squid.VERSION
+## `squid.VERSION`
 Provides the current SDK version
 
 ### Usage
@@ -91,7 +91,7 @@ Provides the current SDK version
 squid.VERSION
 ```
 
-## squid.connection();
+## `squid.connection();`
 Retrieves the current connection details.
 
 ### Usage
@@ -118,7 +118,7 @@ await squid.connection();
 - identity.id : User's unique identifier. 
 - identity.identified: Indicates whether the current user is identified.
 
-## squid.identify({ email : 'foo@example.com' });
+## `squid.identify(\<{ email : 'foo@example.com' }\>);`
 Manually binds a visitor's identification to known traits. This method will also enrich the user with **VisitorID**.
 
 ### Usage
@@ -153,21 +153,40 @@ await squid.identify({
 - company_role: Visistor' company role.
 - linkedin_url: Visistor's linkeding url.
 
-## squid.engine([{ sp : 'https://myserver.com' }]);
+## `squid.labelClicks(\<{ matches, label, type }\>);`
+Tracks user click interactions by tagging specific DOM elements with custom labels. This allows you to define meaningful user actions like "sign up clicked" or "product added to cart" and stream them in real-time.
+
+### Options
+ - `matches` (**Required**, *String*): A CSS selector to match the element(s) you want to track.
+ - `label` (**Required**, *String*): A custom label that identifies this interaction.
+ - `type` (**Required**, *String*): The event type, either:
+ - - `key_event`: for important but non-final user actions (e.g. clicking a tab, opening a modal).
+   - `conversion`: for final actions (e.g. form submission, purchase).
+
+## Usage
+ 
+```javascript
+squid.labelClicks({
+  matches : 'li .item',
+  label   : 'SOME_LABEL_NAME',
+  type    : 'key_event'
+});
+```
+
+## `squid.engine([{ sp : 'https://myserver.com' }]);`
 Connect to squid's realtime engine. Do more then just stream, react and enrich visitor's identity.
 
 ### Options
  - sp:  **Optional**. Define your own service provider. As soon as Squid's SDK attempts to provide details of en `event`, you can replace its content with any other payload comming from your server.
    - `visitor.identified`: **POST /visitor_details** `{visitorID}`
  
-
 ## Usage
  
 ```javascript
 let engine = new squid.engine();
 ```
 
-### .on(`visitor.identified`, \<handler\>);
+### `.on(`visitor.identified`, \<handler\>);`
 This event will dispatch as soon as Squid syncs the visitor and visitor is identified. 
 
 ```javascript
@@ -188,7 +207,7 @@ engine.on('visitor.identified', event => {
 });
 ```
 
-### .on(`visitor.unknown`, \<handler\>);
+### `.on(`visitor.unknown`, \<handler\>);`
 This event will dispatch as soon as Squid syncs and the visitor is unknown or anonymous.
 
 ```javascript
@@ -198,7 +217,7 @@ engine.on('visitor.unknown', event => {
 });
 ```
 
-### .on(`visitor.synched`, \<handler\>);
+### `.on(`visitor.synched`, \<handler\>);`
 This event will dispatch as soon as Squid syncs. this event provides the current visitor regarthless if its identified or not.
 
 ```javascript
@@ -208,7 +227,7 @@ engine.on('visitor.synched', event => {
 });
 ```
 
-### .on(`error`, \<handler\>);
+### `.on(`error`, \<handler\>);`
 Debug if something went worng while wiring your service provider.
 
 ```javascript
