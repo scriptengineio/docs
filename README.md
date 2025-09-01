@@ -177,7 +177,7 @@ squid.labelClicks({
 Connect to squid's realtime engine. Do more then just stream, react and enrich visitor's identity.
 
 ### Options
- - sp:  **Optional**. Define your own service provider. As soon as Squid's SDK attempts to provide details of en `event`, you can replace its content with any other payload comming from your server.
+ - sp:  **Optional**. Define your own service provider. As soon as Squid's SDK attempts to provide details of an `event`, you can replace its content with any other payload coming from your server.
    - `visitor.identified`: **POST /visitor_details** `{visitorID}`
  
 ## Usage
